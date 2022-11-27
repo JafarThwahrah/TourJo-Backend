@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TourController extends Controller
 {
@@ -19,7 +20,24 @@ class TourController extends Controller
         return response()->json([
             "status" => true,
             "message" => "success",
-            "data" => $tours
+            "tours" => $tours
+        ]);
+    }
+
+    public function getToutsPerUser($userid)
+    {
+
+        // $appointmentsAndusers = DB::table('users')->join('appointment', 'appointment.user_id', '=', 'users.id')->where('appointment.doctor_id', $id)->get();
+
+        $toursPerUser = Tour::where('user_id', $userid)->get();
+        $ToursJoinDes = DB::table('tours')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->where('user_id', $userid)->get();
+
+
+        return response()->json([
+            "status" => true,
+            "message" => "success",
+            "toursPerUser" => $toursPerUser,
+            "ToursJoinDes" => $ToursJoinDes
         ]);
     }
 
