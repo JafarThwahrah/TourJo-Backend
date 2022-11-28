@@ -15,7 +15,7 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = Tour::all();
+        $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->get();
 
         return response()->json([
             "status" => true,

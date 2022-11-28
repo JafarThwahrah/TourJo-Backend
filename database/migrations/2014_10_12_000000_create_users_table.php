@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->text('user_image');
             $table->text('user_sammary')->nullable();
-            $table->double('rating')->nullable();
+            $table->double('rating')->default('uncalibrated');
             $table->string('user_role');
             $table->rememberToken();
             $table->timestamps();

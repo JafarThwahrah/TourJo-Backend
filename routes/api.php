@@ -28,6 +28,8 @@ Route::post('/register', [AuthController::class, "register"]);
 Route::post('/login', [AuthController::class, "login"]);
 Route::get('/destinations', [DestinationController::class, "index"]);
 Route::get('/gettours/{userid}', [TourController::class, "getToutsPerUser"]);
+Route::get('/gettours', [TourController::class, "index"]);
+
 
 
 
