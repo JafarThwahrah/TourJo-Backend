@@ -15,12 +15,14 @@ class TourController extends Controller
      */
     public function index()
     {
+        $tours1 = Tour::all();
         $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->get();
 
         return response()->json([
             "status" => true,
             "message" => "success",
-            "tours" => $tours
+            "tours" => $tours,
+            'tours1' => $tours1
         ]);
     }
 
@@ -38,6 +40,16 @@ class TourController extends Controller
             "message" => "success",
             "toursPerUser" => $toursPerUser,
             "ToursJoinDes" => $ToursJoinDes
+        ]);
+    }
+
+    public function getsingletour($tourId)
+    {
+        $singleTour = Tour::where('id', $tourId)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'singleTour' => $singleTour
         ]);
     }
 
@@ -84,24 +96,24 @@ class TourController extends Controller
         // ),
 
         $imagehero = $request->file('hero_img');
-        $nameh = time() + 5 . "." . $imagehero->getClientOriginalExtension();
+        $nameh =  rand() . "." . $imagehero->getClientOriginalExtension();
         $imagehero->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $nameh);
 
 
         $img_1 = $request->file('img_1');
-        $name1 = time() + 1 . "." . $img_1->getClientOriginalExtension();
+        $name1 = rand() . "." . $img_1->getClientOriginalExtension();
         $img_1->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name1);
 
         $img_2 = $request->file('img_2');
-        $name2 = time() + 2 . "." . $img_2->getClientOriginalExtension();
+        $name2 = rand() . "." . $img_2->getClientOriginalExtension();
         $img_2->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name2);
 
         $img_3 = $request->file('img_3');
-        $name3 = time() + 3 . "." . $img_3->getClientOriginalExtension();
+        $name3 = rand() . "." . $img_3->getClientOriginalExtension();
         $img_3->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name3);
 
         $img_4 = $request->file('img_4');
-        $name4 = time() + 4 . "." . $img_4->getClientOriginalExtension();
+        $name4 = rand() . "." . $img_4->getClientOriginalExtension();
         $img_4->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name4);
 
         $tour = Tour::create([
@@ -114,8 +126,8 @@ class TourController extends Controller
             'advisor_contact_number' => $request->advisor_contact_number,
             'hero_img' => $nameh,
             'img_1' => $name1,
-            'img_2' => $name1,
-            'img_3' => $name2,
+            'img_2' => $name2,
+            'img_3' => $name3,
             'img_4' => $name4,
             // 'hero_img' => 's',
 
