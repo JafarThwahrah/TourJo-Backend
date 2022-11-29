@@ -21,14 +21,13 @@ return new class extends Migration
             $table->text('tour_description');
             $table->text('tour_route');
             $table->date('tour_date');
-            $table->integer('advisor_contact_number');
+            $table->bigInteger('advisor_contact_number');
             $table->text('hero_img');
             $table->text('img_1');
             $table->text('img_2');
             $table->text('img_3');
             $table->text('img_4');
             $table->string('is_published')->default(true);
-            $table->string('tour_rating')->default('uncalibrated');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
