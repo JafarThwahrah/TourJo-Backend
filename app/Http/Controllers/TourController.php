@@ -29,7 +29,6 @@ class TourController extends Controller
     public function getToutsPerUser($userid)
     {
 
-        // $appointmentsAndusers = DB::table('users')->join('appointment', 'appointment.user_id', '=', 'users.id')->where('appointment.doctor_id', $id)->get();
 
         $toursPerUser = Tour::where('user_id', $userid)->get();
         $ToursJoinDes = DB::table('tours')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->where('user_id', $userid)->get();
@@ -129,15 +128,6 @@ class TourController extends Controller
             'img_2' => $name2,
             'img_3' => $name3,
             'img_4' => $name4,
-            // 'hero_img' => 's',
-
-            // 'img_1' => "s",
-            // 'img_2' => "s",
-            // 'img_3' => "s",
-            // 'img_4' => "s",
-
-
-
 
         ]);
 
@@ -146,6 +136,9 @@ class TourController extends Controller
             'tour' => $tour
         ]);
     }
+
+
+
 
     /**
      * Display the specified resource.

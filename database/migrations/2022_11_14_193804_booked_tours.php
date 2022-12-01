@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('booked_tours', function (Blueprint $table) {
+        Schema::create('bookedtours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id2')->constrained()->onDelete('cascade');
+            $table->double('tour_price');
             $table->string('booked_rating')->nullable();
             $table->timestamps();
         });

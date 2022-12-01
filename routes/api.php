@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\BookedtourController;
 use App\Http\Controllers\DestinationController;
 
 /*
@@ -40,6 +41,10 @@ Route::get('/getsingletour/{id}', [TourController::class, "getsingletour"]);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/tours', [TourController::class, "store"]);
+    Route::post('/checkouttour', [BookedtourController::class, "bookedtourstore"]);
+    Route::get('/getbookedtour/{userid}', [BookedtourController::class, "bookedToursEachUser"]);
+
+
     Route::put('/tours/{id}', [TourController::class, "update"]);
     Route::post('/tours/{id}', [TourController::class, "destroy"]);
     Route::post('/logout', [AuthController::class, "logout"]);
