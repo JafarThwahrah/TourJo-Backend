@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tour;
 use App\Models\Bookedtour;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,16 +39,29 @@ class BookedtourController extends Controller
     public function bookedtourstore(Request $request)
     {
 
-        $bookedtour = Bookedtour::create([
-            'user_id' => $request->user_id,
-            'user_id2' => $request->user_id2,
-            'tour_id' => $request->tour_id,
-            'tour_price' => $request->tour_price,
+        if ($request->user_id == $request->user_id2) {
+            $bookedtour = Bookedtour::create([
+                'user_id' => $request->user_id,
+                'user_id2' => $request->user_id2,
+                'tour_id' => $request->tour_id,
+                'tour_price' => $request->tour_price,
 
-        ]);
-        return response()->json([
-            'status' => 'success',
-            'bookedtour' => $bookedtour
-        ]);
+            ]);
+
+            $Tour = Tour::find($request->tour_id);
+            $Tour->update(['is_published' => 0]);
+
+            $Tour->delete();
+            return response()->json([
+                'status' => 'success',
+                'bookedtour' => $bookedtour
+            ]);
+        } else {
+            return response()->json([
+
+                'status' => 'error',
+                'message' => 'Tour advisors cannot book their own Tours'
+            ]);
+        }
     }
 }
