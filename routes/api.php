@@ -32,6 +32,7 @@ Route::get('/gettours/{userid}', [TourController::class, "getToutsPerUser"]);
 Route::get('/gettours', [TourController::class, "index"]);
 Route::get('/getsingletour/{id}', [TourController::class, "getsingletour"]);
 Route::get('/getbookedtour/{userRole}/{userid}', [BookedtourController::class, "bookedToursEachUser"]);
+Route::get('/getalladvisors', [AuthController::class, "getalladvisors"]);
 
 
 

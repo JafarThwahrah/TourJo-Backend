@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -58,7 +59,14 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getalladvisors()
+    {
+        $Advisors = DB::table('users')->where('user_role', 'Advisor')->orderBy('rating', 'desc')->get();
 
+        return response()->json([
+            'Advisors' => $Advisors,
+        ]);
+    }
 
 
     public function login(Request $request)
