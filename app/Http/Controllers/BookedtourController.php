@@ -40,6 +40,12 @@ class BookedtourController extends Controller
     {
 
         if ($request->user_id == $request->user_id2) {
+            return response()->json([
+
+                'status' => 'Wrong action',
+                'message' => 'Tour advisors cannot book their own Tours'
+            ]);
+        } else {
             $bookedtour = Bookedtour::create([
                 'user_id' => $request->user_id,
                 'user_id2' => $request->user_id2,
@@ -48,19 +54,14 @@ class BookedtourController extends Controller
 
             ]);
 
-            $Tour = Tour::find($request->tour_id);
-            $Tour->update(['is_published' => 0]);
-
+            $Tour = Tour::findOrFail($request->tour_id);
+            DB::table('tours')
+                ->where('id', $request->tour_id)
+                ->update(['is_published' => 0]);
             $Tour->delete();
             return response()->json([
                 'status' => 'success',
                 'bookedtour' => $bookedtour
-            ]);
-        } else {
-            return response()->json([
-
-                'status' => 'error',
-                'message' => 'Tour advisors cannot book their own Tours'
             ]);
         }
     }

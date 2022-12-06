@@ -15,8 +15,8 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours1 = DB::table('users')->join('tours', 'tours.user_id', '=', 'users.id')->get();
-        $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->get();
+        $tours1 = DB::table('users')->join('tours', 'tours.user_id', '=', 'users.id')->whereNull('deleted_at')->get();
+        $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->whereNull('deleted_at')->get();
 
         for ($i = 0; $i < count($tours1); $i++) {
             $tours[$i]->id = $tours1[$i]->id;
