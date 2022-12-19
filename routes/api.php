@@ -47,4 +47,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/tours/{id}', [TourController::class, "update"]);
     Route::post('/tours/{id}', [TourController::class, "destroy"]);
     Route::post('/logout', [AuthController::class, "logout"]);
+    Route::post('/rateandreview', [BookedtourController::class, "rateandreview"]);
 });

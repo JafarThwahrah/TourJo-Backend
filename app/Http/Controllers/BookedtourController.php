@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
+use App\Models\Review;
 use App\Models\Bookedtour;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,5 +65,27 @@ class BookedtourController extends Controller
                 'bookedtour' => $bookedtour
             ]);
         }
+    }
+
+    public function rateandreview(Request $request)
+    {
+        DB::table('bookedtours')
+            ->where('tour_id', $request->tour_id)
+            ->update(['booked_rating' => $request->rating]);
+
+
+        $review = Review::create([
+            'user_id' => $request->user_id,
+            'tour_id' => $request->tour_id,
+            'review_description' => $request->review,
+
+
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'review' => $review,
+
+        ]);
     }
 }
