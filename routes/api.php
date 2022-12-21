@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/tours', [TourController::class, "store"]);
     Route::post('/checkouttour', [BookedtourController::class, "bookedtourstore"]);
     Route::put('/tours/{id}', [TourController::class, "update"]);
-    Route::post('/tours/{id}', [TourController::class, "destroy"]);
+    Route::delete('/tours/{id}', [TourController::class, "destroy"]);
     Route::post('/logout', [AuthController::class, "logout"]);
     Route::post('/rateandreview', [BookedtourController::class, "rateandreview"]);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,16 +33,19 @@ class TourController extends Controller
     public function getToutsPerUser($userid)
     {
 
-
         $toursPerUser = Tour::where('user_id', $userid)->get();
-        $ToursJoinDes = DB::table('tours')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->where('user_id', $userid)->get();
+        $ToursJoinDes = DB::table('destinations')->join('tours', 'destinations.id', '=', 'tours.destination_id')->where('user_id', $userid)->get();
+        $tours3 = User::findOrFail($userid)->tour;
+        $User = User::findOrFail($userid);
+        // $comments = Post::findOrFail($id)->comments;
 
 
         return response()->json([
             "status" => true,
             "message" => "success",
             "toursPerUser" => $toursPerUser,
-            "ToursJoinDes" => $ToursJoinDes
+            "ToursJoinDes" => $ToursJoinDes,
+            "tours3" => $tours3,
         ]);
     }
 
@@ -185,6 +189,16 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = Tour::find($id);
+        DB::table('tours')
+            ->where('id', $id)
+            ->update(['is_published' => 0]);
+        $deleted->delete();
+
+
+        return response()->json([
+            'status' => 'deleted successfully',
+            'DeletedTour' => $deleted
+        ]);
     }
 }
