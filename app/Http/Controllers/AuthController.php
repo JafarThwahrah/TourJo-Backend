@@ -64,8 +64,13 @@ class AuthController extends Controller
 
         $Advisors = DB::table('users')->where('user_role', 'Advisor')->orderBy('rating', 'desc')->get();
 
+        $best6Advisors = [];
+        for ($i = 0; $i < 6; $i++) {
+
+            array_push($best6Advisors, $Advisors[$i]);
+        }
         return response()->json([
-            'Advisors' => $Advisors,
+            'Advisors' => $best6Advisors,
         ]);
     }
 
