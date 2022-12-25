@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id2')->constrained()->onDelete('cascade');
             $table->double('tour_price');
-            $table->string('booked_rating')->nullable();
+            $table->float('booked_rating')->nullable();
             $table->timestamps();
         });
     }

@@ -33,6 +33,10 @@ Route::get('/gettours', [TourController::class, "index"]);
 Route::get('/getsingletour/{id}', [TourController::class, "getsingletour"]);
 Route::get('/getbookedtour/{userRole}/{userid}', [BookedtourController::class, "bookedToursEachUser"]);
 Route::get('/getalladvisors', [AuthController::class, "getalladvisors"]);
+Route::post('/googlelogin', [AuthController::class, "googlelogin"]);
+Route::get('/getTestimonials', [BookedtourController::class, "getTestimonials"]);
+
+
 
 
 

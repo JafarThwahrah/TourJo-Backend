@@ -61,6 +61,7 @@ class AuthController extends Controller
 
     public function getalladvisors()
     {
+
         $Advisors = DB::table('users')->where('user_role', 'Advisor')->orderBy('rating', 'desc')->get();
 
         return response()->json([
@@ -96,6 +97,44 @@ class AuthController extends Controller
             'token' => $token,
         ];
         return response($response, 201);
+    }
+
+    public function googlelogin(Request $request)
+    {
+
+        $checkEmail = User::where('user_email', $request->email)->first();
+
+        if (!$checkEmail) {
+
+            $user = User::create([
+                'user_name' => $request->name,
+                'user_email' => $request->email,
+                'user_role' => 'Tourist',
+                'user_image' => $request->picture,
+
+            ]);
+
+            $token = $user->createToken($user->user_email)->plainTextToken;
+
+            // $response = [
+            //     'user' => $user,
+            //     'token' => $token,
+            // ];
+            return response()->json([
+                'user' => $user,
+                'token' => $token,
+
+            ]);
+        } else {
+            $user = User::where('user_email', $request->email)->first();
+            $token = $user->createToken($user->user_email)->plainTextToken;
+
+            $response = [
+                'user' => $user,
+                'token' => $token,
+            ];
+            return response($response, 201);
+        }
     }
 
 

@@ -73,6 +73,19 @@ class BookedtourController extends Controller
             ->where('tour_id', $request->tour_id)
             ->update(['booked_rating' => $request->rating]);
 
+        $tour = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->where('tours.id', $request->tour_id)->select('users.id', 'tours.user_id')->get();
+
+        $RatedToursPerUser = Bookedtour::where('user_id2', $tour[0]->id)->where('booked_rating', '>=', 0)->get();
+
+        $RateSum = 0;
+        foreach ($RatedToursPerUser as $Rating) {
+            $RateSum += $Rating->booked_rating;
+        }
+        $UserRate = $RateSum / count($RatedToursPerUser);
+
+        DB::table('users')
+            ->where('id', $tour[0]->user_id)
+            ->update(['rating' => $UserRate]);
 
         $review = Review::create([
             'user_id' => $request->user_id,
@@ -86,6 +99,20 @@ class BookedtourController extends Controller
             'status' => 'success',
             'review' => $review,
 
+        ]);
+    }
+
+    public function getTestimonials()
+    {
+
+        // $Testimonials = Review::all()->orderBy('rating', 'desc')->get();
+        $Testimonials = DB::table('reviews')->join('bookedtours', 'bookedtours.tour_id', '=', 'reviews.tour_id')->join('users', 'users.id', '=', 'reviews.user_id')->where('booked_rating', '<>', null)->orderBy('booked_rating', 'desc')->select('reviews.*', 'users.user_name', 'users.user_image', 'bookedtours.booked_rating')->get();
+        $arr = [];
+        for ($i = 0; $i < 6; $i++) {
+            array_push($arr, $Testimonials[$i]);
+        }
+        return response()->json([
+            'Testimonials' => $arr
         ]);
     }
 }
