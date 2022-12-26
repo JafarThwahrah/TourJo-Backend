@@ -14,4 +14,9 @@ class Destination extends Model
     {
         return $this->hasMany(Tour::class, 'foreign_key', 'destination_id');
     }
+
+    protected $fillable = [
+        'destination_name',
+        'destination_image',
+    ];
 }

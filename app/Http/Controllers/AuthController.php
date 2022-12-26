@@ -59,6 +59,17 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getallusers()
+    {
+
+        $Allusers = User::all();
+
+        return response()->json([
+
+            'users' => $Allusers,
+        ]);
+    }
+
     public function getalladvisors()
     {
 
@@ -153,5 +164,14 @@ class AuthController extends Controller
 
             'message' => 'logged out'
         ];
+    }
+    public function destroy($id)
+    {
+
+        $user = User::find($id);
+        $user->delete();
+        return response()->json([
+            'success' => 'User deleted successfully'
+        ]);
     }
 }

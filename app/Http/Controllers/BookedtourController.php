@@ -115,4 +115,13 @@ class BookedtourController extends Controller
             'Testimonials' => $arr
         ]);
     }
+
+    public function getallbookedtours()
+    {
+        $bookedTours = DB::table('bookedtours')->get();
+
+        return response()->json([
+            'BookedTours' => $bookedTours
+        ]);
+    }
 }

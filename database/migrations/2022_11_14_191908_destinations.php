@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('destination_name');
             $table->string('destination_image');
             $table->string('num_published');
-           
+            $table->timestamps();
         });
     }
 

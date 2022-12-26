@@ -201,4 +201,12 @@ class TourController extends Controller
             'DeletedTour' => $deleted
         ]);
     }
+
+    public function getalltours()
+    {
+        $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->select('tours.tour_date', 'tours.id', 'users.user_name', 'destinations.destination_name')->whereNull('deleted_at')->get();
+        return response()->json([
+            'tours' => $tours
+        ]);
+    }
 }

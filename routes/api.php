@@ -35,6 +35,17 @@ Route::get('/getbookedtour/{userRole}/{userid}', [BookedtourController::class, "
 Route::get('/getalladvisors', [AuthController::class, "getalladvisors"]);
 Route::post('/googlelogin', [AuthController::class, "googlelogin"]);
 Route::get('/getTestimonials', [BookedtourController::class, "getTestimonials"]);
+Route::get('/getallusers', [AuthController::class, "getallusers"]);
+Route::get('/getalltours', [TourController::class, "getalltours"]);
+Route::get('/getallbookedtours', [BookedtourController::class, "getallbookedtours"]);
+Route::post('/newdestination', [DestinationController::class, "newdestination"]);
+
+
+
+
+Route::delete('/deleteUser/{id}', [AuthController::class, "destroy"]);
+// Route::delete('/deletetour/{id}', [TourController::class, "destroy"]);
+
 
 
 
