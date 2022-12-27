@@ -39,6 +39,7 @@ Route::get('/getallusers', [AuthController::class, "getallusers"]);
 Route::get('/getalltours', [TourController::class, "getalltours"]);
 Route::get('/getallbookedtours', [BookedtourController::class, "getallbookedtours"]);
 Route::post('/newdestination', [DestinationController::class, "newdestination"]);
+Route::get('/getoneuser/{id}', [AuthController::class, "getoneuser"]);
 
 
 
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/tours', [TourController::class, "store"]);
     Route::post('/checkouttour', [BookedtourController::class, "bookedtourstore"]);
     Route::put('/tours/{id}', [TourController::class, "update"]);
+    Route::post('/user/{id}', [AuthController::class, "update"]);
     Route::delete('/tours/{id}', [TourController::class, "destroy"]);
     Route::post('/logout', [AuthController::class, "logout"]);
     Route::post('/rateandreview', [BookedtourController::class, "rateandreview"]);

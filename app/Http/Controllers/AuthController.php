@@ -174,4 +174,23 @@ class AuthController extends Controller
             'success' => 'User deleted successfully'
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::find($id);
+        $user->update($request->all());
+
+
+        return response()->json([
+            'name' => $user
+        ]);
+    }
+
+    public function getoneuser($id)
+    {
+        return response()->json([
+            User::find($id)
+        ]);
+    }
 }
