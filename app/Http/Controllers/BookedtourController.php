@@ -40,11 +40,11 @@ class BookedtourController extends Controller
     public function bookedtourstore(Request $request)
     {
 
-        if ($request->user_id == $request->user_id2) {
+        if ($request->user_id == $request->user_id2 || $request->user_role == 'Advisor') {
             return response()->json([
 
                 'status' => 'Wrong action',
-                'message' => 'Tour advisors cannot book their own Tours'
+                'message' => 'Tour advisors cannot book Tours'
             ]);
         } else {
             $bookedtour = Bookedtour::create([

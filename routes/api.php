@@ -40,6 +40,10 @@ Route::get('/getalltours', [TourController::class, "getalltours"]);
 Route::get('/getallbookedtours', [BookedtourController::class, "getallbookedtours"]);
 Route::post('/newdestination', [DestinationController::class, "newdestination"]);
 Route::get('/getoneuser/{id}', [AuthController::class, "getoneuser"]);
+Route::get('/about', [TourController::class, "about"]);
+Route::get('/toursnumbers', [TourController::class, "toursnumbers"]);
+
+
 
 
 

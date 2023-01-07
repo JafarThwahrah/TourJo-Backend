@@ -51,6 +51,7 @@ class TourController extends Controller
 
     public function getsingletour($tourId)
     {
+        // $tour = DB::table('users')->join('tours', 'users.id', '=', "tours.user_id")->where('tours.id', $tourId)->get();
         $singleTour = Tour::where('id', $tourId)->get();
 
         return response()->json([
@@ -207,6 +208,41 @@ class TourController extends Controller
         $tours = DB::table('tours')->join('users', 'tours.user_id', '=', 'users.id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->select('tours.tour_date', 'tours.id', 'users.user_name', 'destinations.destination_name')->whereNull('deleted_at')->get();
         return response()->json([
             'tours' => $tours
+        ]);
+    }
+
+    public function about()
+    {
+
+        $allUsers = User::all();
+        $advisors = DB::table('users')->where('user_role', 'Advisor')->get();
+        $happyCustomers = DB::table('bookedtours')->where('booked_rating', '>=', 4)->get();
+        $publishedTours = DB::table('tours')->where('is_published', 1)->get();
+
+        return response()->json([
+            'allUsers' => count($allUsers),
+            'advisors' => count($advisors),
+            'happyCustomers' => count($happyCustomers),
+            'publishedTours' => count($publishedTours)
+        ]);
+    }
+
+    public function toursnumbers()
+    {
+        $Aqaba = DB::table('tours')->where('destination_id', 1)->get();
+        $DeadSea = DB::table('tours')->where('destination_id', 2)->get();
+        $Petra = DB::table('tours')->where('destination_id', 3)->get();
+        $Jerash = DB::table('tours')->where('destination_id', 4)->get();
+        $Nebo = DB::table('tours')->where('destination_id', 5)->get();
+        $Amman = DB::table('tours')->where('destination_id', 6)->get();
+
+        return response()->json([
+            'Aqaba' => count($Aqaba),
+            'DeadSea' => count($DeadSea),
+            'Petra' => count($Petra),
+            'Jerash' => count($Jerash),
+            'Nebo' => count($Nebo),
+            'Amman' => count($Amman)
         ]);
     }
 }
