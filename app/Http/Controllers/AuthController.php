@@ -101,7 +101,7 @@ class AuthController extends Controller
         if (!$user || !Hash::check($fields['password'], $user->password)) {
 
             return response([
-                'message' => 'Bad Creds',
+                'message' => 'You have entered wrong Email or Password',
             ], 401);
         }
 
@@ -179,11 +179,31 @@ class AuthController extends Controller
     {
 
         $user = User::find($id);
-        $user->update($request->all());
+        if (!$request->file('user_image')) {
 
+            $user->update([
+                'user_name' => $request->user_name,
+                'user_sammary' => $request->user_sammary,
+                'password' => Hash::make($request->password),
+
+            ]);
+        } else {
+
+            $image = $request->file('user_image');
+            $name = rand(10, 100) . "." . $image->getClientOriginalExtension();
+            $image->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name);
+            $user->update([
+                'user_image' => $name,
+                'user_name' => $request->user_name,
+                'user_sammary' => $request->user_sammary,
+                'password' => Hash::make($request->password),
+
+            ]);
+        }
 
         return response()->json([
-            'name' => $user
+            'name' => $user,
+
         ]);
     }
 

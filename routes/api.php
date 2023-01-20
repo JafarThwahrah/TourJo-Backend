@@ -48,6 +48,8 @@ Route::get('/toursnumbers', [TourController::class, "toursnumbers"]);
 
 
 
+
+
 Route::delete('/deleteUser/{id}', [AuthController::class, "destroy"]);
 // Route::delete('/deletetour/{id}', [TourController::class, "destroy"]);
 

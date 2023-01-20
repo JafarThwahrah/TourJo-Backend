@@ -229,12 +229,12 @@ class TourController extends Controller
 
     public function toursnumbers()
     {
-        $Aqaba = DB::table('tours')->where('destination_id', 1)->get();
-        $DeadSea = DB::table('tours')->where('destination_id', 2)->get();
-        $Petra = DB::table('tours')->where('destination_id', 3)->get();
-        $Jerash = DB::table('tours')->where('destination_id', 4)->get();
-        $Nebo = DB::table('tours')->where('destination_id', 5)->get();
-        $Amman = DB::table('tours')->where('destination_id', 6)->get();
+        $Aqaba = DB::table('tours')->where('destination_id', 1)->where('is_published', 0)->get();
+        $DeadSea = DB::table('tours')->where('destination_id', 2)->where('is_published', 0)->get();
+        $Petra = DB::table('tours')->where('destination_id', 3)->where('is_published', 0)->get();
+        $Jerash = DB::table('tours')->where('destination_id', 4)->where('is_published', 0)->get();
+        $Nebo = DB::table('tours')->where('destination_id', 5)->where('is_published', 0)->get();
+        $Amman = DB::table('tours')->where('destination_id', 6)->where('is_published', 0)->get();
 
         return response()->json([
             'Aqaba' => count($Aqaba),
