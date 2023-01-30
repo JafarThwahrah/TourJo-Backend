@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\BookedtourController;
 use App\Http\Controllers\DestinationController;
 
@@ -42,6 +43,11 @@ Route::post('/newdestination', [DestinationController::class, "newdestination"])
 Route::get('/getoneuser/{id}', [AuthController::class, "getoneuser"]);
 Route::get('/about', [TourController::class, "about"]);
 Route::get('/toursnumbers', [TourController::class, "toursnumbers"]);
+Route::get('/getFavorites/{id}', [WishlistController::class, "getFavorites"]);
+Route::get('/getwishwithtours/{id}', [WishlistController::class, "getwishwithtours"]);
+
+
+
 
 
 
@@ -71,4 +77,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/tours/{id}', [TourController::class, "destroy"]);
     Route::post('/logout', [AuthController::class, "logout"]);
     Route::post('/rateandreview', [BookedtourController::class, "rateandreview"]);
+    Route::post('/addtoWishlist', [WishlistController::class, "addtoWishlist"]);
+    Route::post('/removefromFav', [WishlistController::class, "removefromFav"]);
 });
