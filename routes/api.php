@@ -78,5 +78,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, "logout"]);
     Route::post('/rateandreview', [BookedtourController::class, "rateandreview"]);
     Route::post('/addtoWishlist', [WishlistController::class, "addtoWishlist"]);
+    Route::post('/editpublishedtour/{id}', [TourController::class, "editpublishedtour"]);
     Route::post('/removefromFav', [WishlistController::class, "removefromFav"]);
 });

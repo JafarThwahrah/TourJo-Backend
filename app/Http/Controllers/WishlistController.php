@@ -41,7 +41,7 @@ class WishlistController extends Controller
     public function getwishwithtours($id)
     {
 
-        $wishLists = DB::table('wishlists')->join('tours', 'tours.id', '=', 'wishlists.tour_id')->where('wishlists.user_id', $id)->get();
+        $wishLists = DB::table('wishlists')->join('tours', 'tours.id', '=', 'wishlists.tour_id')->join('users', 'users.id', '=', 'tours.user_id')->join('destinations', 'destinations.id', '=', 'tours.destination_id')->where('wishlists.user_id', $id)->select('tours.id', 'users.user_name', 'destinations.destination_name', 'users.user_image', 'users.rating', 'tours.tour_description', 'tours.tour_date', 'tours.created_at', 'tours.hero_img')->get();
 
         return response()->json([
             'wishlists' => $wishLists

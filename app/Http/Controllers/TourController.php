@@ -246,4 +246,27 @@ class TourController extends Controller
             'Amman' => count($Amman)
         ]);
     }
+
+    public function editpublishedtour(Request $request, $id)
+    {
+        $tour = Tour::find($id);
+
+        if (!$request->hero_img && !$request->img_1 && !$request->img_2 && !$request->img_3 && !$request->img_4) {
+            $tour->update([
+                'advisor_contact_number' => $request->advisor_contact_number,
+                'destination_id' => $request->destination_id,
+                'tour_description' => $request->tour_description,
+                'tour_price' => $request->tour_price,
+                'tour_route' => $request->tour_route,
+                'tour_date' => $request->tour_date,
+
+            ]);
+        }
+
+        return response()->json([
+
+            'response' => $request,
+            'UpdatedTour' => $tour
+        ]);
+    }
 }
