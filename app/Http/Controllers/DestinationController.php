@@ -38,4 +38,15 @@ class DestinationController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function destroy($id)
+    {
+        $destination = Destination::find($id);
+        $destination->delete();
+
+        return response()->json([
+            'destinations' => $destination,
+            'status' => 'deleted successfully'
+        ]);
+    }
 }

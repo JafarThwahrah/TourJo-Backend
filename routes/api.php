@@ -57,6 +57,10 @@ Route::get('/getwishwithtours/{id}', [WishlistController::class, "getwishwithtou
 
 
 Route::delete('/deleteUser/{id}', [AuthController::class, "destroy"]);
+Route::delete('/deletedestination/{id}', [DestinationController::class, "destroy"]);
+Route::post('/updateUser/{id}', [AuthController::class, "updateUser"]);
+
+
 // Route::delete('/deletetour/{id}', [TourController::class, "destroy"]);
 
 
