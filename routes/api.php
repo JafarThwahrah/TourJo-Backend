@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\BookedtourController;
 use App\Http\Controllers\DestinationController;
 
@@ -84,4 +85,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/addtoWishlist', [WishlistController::class, "addtoWishlist"]);
     Route::post('/editpublishedtour/{id}', [TourController::class, "editpublishedtour"]);
     Route::post('/removefromFav', [WishlistController::class, "removefromFav"]);
+    Route::post('/contactus/{id}', [QuestionsController::class, "store"]);
 });

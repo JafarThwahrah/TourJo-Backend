@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Review;
+use App\Models\Question;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -25,6 +26,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function question()
+    {
+        return $this->hasMany(Question::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
