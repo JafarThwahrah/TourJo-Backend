@@ -154,6 +154,39 @@ class AuthController extends Controller
     }
 
 
+    public function facebooklogin(Request $request)
+    {
+
+        $checkEmail = User::where('user_email', $request->email)->first();
+
+        if (!$checkEmail) {
+
+            $user = User::create([
+                'user_name' => $request->name,
+                'user_email' => $request->email,
+                'user_role' => 'Tourist',
+
+            ]);
+
+            $token = $user->createToken($user->user_email)->plainTextToken;
+
+
+            return response()->json([
+                'user' => $user,
+                'token' => $token,
+
+            ]);
+        } else {
+            $user = User::where('user_email', $request->email)->first();
+            $token = $user->createToken($user->user_email)->plainTextToken;
+
+            $response = [
+                'user' => $checkEmail,
+                'token' => $token,
+            ];
+            return response($response, 201);
+        }
+    }
 
     public function logout(Request $request)
     {
@@ -179,12 +212,31 @@ class AuthController extends Controller
     {
 
         $user = User::find($id);
-        if (!$request->file('user_image')) {
+        if (!$request->file('user_image') && $request->user_sammary) {
 
             $user->update([
                 'user_name' => $request->user_name,
                 'user_sammary' => $request->user_sammary,
                 'password' => Hash::make($request->password),
+
+            ]);
+        } elseif (!$request->file('user_image') && !$request->user_sammary) {
+
+
+            $user->update([
+                'user_name' => $request->user_name,
+                'password' => Hash::make($request->password),
+
+            ]);
+        } elseif ($request->file('user_image') && !$request->user_sammary) {
+            $image = $request->file('user_image');
+            $name = rand(10, 100) . "." . $image->getClientOriginalExtension();
+            $image->move('C:\Apache24\htdocs\Masterpiece\backup\src\images', $name);
+            $user->update([
+                'user_image' => $name,
+                'user_name' => $request->user_name,
+                'password' => Hash::make($request->password),
+                'user_sammary' => NULL
 
             ]);
         } else {

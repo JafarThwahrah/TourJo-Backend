@@ -36,6 +36,7 @@ Route::get('/getsingletour/{id}', [TourController::class, "getsingletour"]);
 Route::get('/getbookedtour/{userRole}/{userid}', [BookedtourController::class, "bookedToursEachUser"]);
 Route::get('/getalladvisors', [AuthController::class, "getalladvisors"]);
 Route::post('/googlelogin', [AuthController::class, "googlelogin"]);
+Route::post('/facebooklogin', [AuthController::class, "facebooklogin"]);
 Route::get('/getTestimonials', [BookedtourController::class, "getTestimonials"]);
 Route::get('/getallusers', [AuthController::class, "getallusers"]);
 Route::get('/getalltours', [TourController::class, "getalltours"]);
