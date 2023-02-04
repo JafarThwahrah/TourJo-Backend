@@ -106,9 +106,9 @@ class BookedtourController extends Controller
     {
 
         // $Testimonials = Review::all()->orderBy('rating', 'desc')->get();
-        $Testimonials = DB::table('reviews')->join('bookedtours', 'bookedtours.tour_id', '=', 'reviews.tour_id')->join('users', 'users.id', '=', 'reviews.user_id')->where('booked_rating', '<>', null)->orderBy('booked_rating', 'desc')->select('reviews.*', 'users.user_name', 'users.user_image', 'bookedtours.booked_rating')->get();
+        $Testimonials = DB::table('reviews')->join('bookedtours', 'bookedtours.tour_id', '=', 'reviews.tour_id')->join('users', 'users.id', '=', 'reviews.user_id')->where('booked_rating', '<>', null)->orderBy('booked_rating', 'desc')->orderBy('reviews.created_at', 'desc')->select('reviews.*', 'users.user_name', 'users.user_image', 'bookedtours.booked_rating')->get();
         $arr = [];
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             array_push($arr, $Testimonials[$i]);
         }
         return response()->json([
